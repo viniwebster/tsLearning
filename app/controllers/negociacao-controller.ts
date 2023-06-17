@@ -1,3 +1,4 @@
+import { logarTempoDeExecucao } from "../decorators/logar-tempo-de-execucao.js";
 import { DiaDaSemana } from "../enums/dias-da-semana.js";
 import { Negociacao } from "../models/negociacao.js";
 import { Negociacoes } from "../models/negociacoes.js";
@@ -22,6 +23,7 @@ export class NegociacaoController {
         this.negociacoesView.update(this.negociacoes);
     }
 
+    @logarTempoDeExecucao(true)
     public adiciona(): void {
 
         const negociacao = Negociacao.criaDe(
@@ -44,14 +46,6 @@ export class NegociacaoController {
     private ehDiaDaSemana(data: Date) {
         return data.getDay() > DiaDaSemana.DOMINGO && data.getDay() < DiaDaSemana.SABADO;
     }
-
-/*     private criaNegociacao(): Negociacao {
-        const exp = /-/g;
-        const date = new Date(this.inputData.value.replace(exp, ','));
-        const quantidade = parseInt(this.inputQuantidade.value,);
-        const valor = parseFloat(this.inputValor.value);
-        return new Negociacao(date, quantidade, valor);
-    } */
 
     private limparFormulario(): void {
         this.inputData.value = '';
